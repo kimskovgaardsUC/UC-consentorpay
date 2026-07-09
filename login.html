@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - UC Daily</title>
+
+    <script>
+    if (localStorage.getItem('uc_demo_subscriber') === 'true') {
+        var UC_UI_SUPPRESS_CMP_DISPLAY = true;
+    }
+    </script>
+<script src="https://web.cmp.usercentrics-sandbox.eu/tcf/stub.js"></script>
+    <script id="usercentrics-cmp" src="https://web.cmp.usercentrics-sandbox.eu/ui/loader.js" data-settings-id="MH_URI7H_6so1B" data-sandbox="true" async></script>
+
+    <style>
+        body { font-family: Arial, Helvetica, sans-serif; max-width: 400px; margin: 60px auto; color: #222; }
+        nav a { margin-right: 12px; }
+        input { display:block; width: 100%; padding: 8px; margin-bottom: 12px; box-sizing: border-box; }
+        button { padding: 10px 16px; cursor: pointer; width: 100%; }
+        .note { font-size: 12px; color: #888; margin-top: 16px; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a> |
+        <a href="login.html">Login</a> |
+        <a href="subscribe.html">Subscribe</a>
+    </nav>
+
+    <h1>Subscriber Login</h1>
+    <p>Mock login for demo purposes. Any input logs you in as a subscriber.</p>
+
+    <form onsubmit="ucDemoLogin(event)">
+        <input type="email" placeholder="Email" value="demo@example.com">
+        <input type="password" placeholder="Password" value="demo">
+        <button type="submit">Log In</button>
+    </form>
+
+    <p class="note">This page should be added to the CMP's "Exclude pages" list so the banner never shows here.</p>
+
+    <script>
+    function ucDemoLogin(e) {
+        e.preventDefault();
+        localStorage.setItem('uc_demo_subscriber', 'true');
+        window.location.href = 'index.html';
+    }
+    </script>
+</body>
+</html>

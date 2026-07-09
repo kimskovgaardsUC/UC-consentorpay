@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscribe - UC Daily</title>
+
+    <script>
+    if (localStorage.getItem('uc_demo_subscriber') === 'true') {
+        var UC_UI_SUPPRESS_CMP_DISPLAY = true;
+    }
+    </script>
+<script src="https://web.cmp.usercentrics-sandbox.eu/tcf/stub.js"></script>
+    <script id="usercentrics-cmp" src="https://web.cmp.usercentrics-sandbox.eu/ui/loader.js" data-settings-id="MH_URI7H_6so1B" data-sandbox="true" async></script>
+
+    <style>
+        body { font-family: Arial, Helvetica, sans-serif; max-width: 400px; margin: 60px auto; color: #222; }
+        nav a { margin-right: 12px; }
+        .plan { border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+        .price { font-size: 28px; font-weight: bold; }
+        button { padding: 10px 16px; cursor: pointer; width: 100%; }
+        .note { font-size: 12px; color: #888; margin-top: 16px; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a> |
+        <a href="login.html">Login</a> |
+        <a href="subscribe.html">Subscribe</a>
+    </nav>
+
+    <h1>Subscribe and remove ads</h1>
+
+    <div class="plan">
+        <div class="price">EUR 4.99 / month</div>
+        <p>No tracking, no ad banner, cancel anytime. This is a mock checkout for demo purposes only, no payment is processed.</p>
+        <button onclick="ucDemoConfirmSubscription()">Confirm Subscription</button>
+    </div>
+
+    <p class="note">This page is the target for the CMP's "Reject and subscribe" button URL, and should also be added to "Exclude pages" so the banner does not show here.</p>
+
+    <script>
+    function ucDemoConfirmSubscription() {
+        localStorage.setItem('uc_demo_subscriber', 'true');
+        window.location.href = 'index.html';
+    }
+    </script>
+</body>
+</html>
