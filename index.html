@@ -23,10 +23,8 @@
       console.log('User is not a subscriber — Consent or Pay banner will appear');
 
       // Insert the TCF stub before the CMP loader
-      // async = false preserves this order — dynamically created scripts default to async=true otherwise
       var tcfScript = document.createElement('script');
       tcfScript.src = 'https://web.cmp.usercentrics-sandbox.eu/tcf/stub.js';
-      tcfScript.async = false;
       document.head.insertBefore(tcfScript, document.head.firstChild);
 
       // Load the CMP — the Consent or Pay theme will handle display automatically
@@ -35,7 +33,6 @@
       cmpTag.setAttribute('data-sandbox', 'true');
       cmpTag.setAttribute('id', 'usercentrics-cmp');
       cmpTag.src = 'https://web.cmp.usercentrics-sandbox.eu/ui/loader.js';
-      cmpTag.async = false;
       document.head.insertBefore(cmpTag, tcfScript.nextSibling);
     }
 
