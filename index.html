@@ -13,6 +13,29 @@
 <script src="https://web.cmp.usercentrics-sandbox.eu/tcf/stub.js"></script>
     <script id="usercentrics-cmp" src="https://web.cmp.usercentrics-sandbox.eu/ui/loader.js" data-settings-id="MH_URI7H_6so1B" data-sandbox="true" async></script>
 
+    <script type="application/javascript">
+    __tcfapi('addEventListener', 2, (tcData,success)=>{
+        if (success) {
+            console.log('tcfEvent',tcData)
+        }
+        else {
+            console.log('no success');
+        }
+    }
+    );
+    </script>
+
+    <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+    <script>
+      window.googletag = window.googletag || {cmd: []};
+      googletag.cmd.push(function() {
+        // Using a highly reliable public demo path
+        googletag.defineSlot('/6355419/Travel/Europe/France/Paris', [300, 250], 'test-ad-container')
+                 .addService(googletag.pubads());
+        googletag.enableServices();
+      });
+    </script>
+
     <!-- Google Analytics -->
     <script type="text/plain" data-usercentrics="Google Analytics">
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -78,6 +101,12 @@
 
     <h3>UC Matrix Embed</h3>
     <div class="uc-embed-tracker" uc-embed-type="matrix" style="width: 100%;"></div>
+
+    <div id="test-ad-container" style="width: 300px; height: 250px; border: 1px solid #ccc;">
+      <script>
+        googletag.cmd.push(function() { googletag.display('test-ad-container'); });
+      </script>
+    </div>
 
     <footer>
         <img src="https://usercentrics.com/wp-content/uploads/2020/04/190208-UCS-Logo-800px.png" alt="uc-logo" height="20">
