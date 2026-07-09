@@ -10,28 +10,31 @@
     (function () {
         var isSubscriber = localStorage.getItem('uc_demo_subscriber') === 'true';
 
+        function addScript(src, attrs) {
+            var s = document.createElement('script');
+            s.src = src;
+            s.async = false; // preserve document order - dynamically created scripts default to async=true
+            for (var key in attrs) { s.setAttribute(key, attrs[key]); }
+            document.head.appendChild(s);
+            return s;
+        }
+
         if (isSubscriber) {
             console.log('User is a subscriber - loading CMP silently');
-
-            var cmpTag = document.createElement('script');
-            cmpTag.setAttribute('data-settings-id', 'MH_URI7H_6so1B');
-            cmpTag.setAttribute('data-sandbox', 'true');
-            cmpTag.setAttribute('id', 'usercentrics-cmp');
-            cmpTag.src = 'https://web.cmp.usercentrics-sandbox.eu/ui/loader.js';
-            document.head.insertBefore(cmpTag, document.head.firstChild);
+            addScript('https://web.cmp.usercentrics-sandbox.eu/ui/loader.js', {
+                'data-settings-id': 'MH_URI7H_6so1B',
+                'data-sandbox': 'true',
+                'id': 'usercentrics-cmp'
+            });
         } else {
             console.log('User is not a subscriber - Consent or Pay banner will appear');
-
-            var tcfScript = document.createElement('script');
-            tcfScript.src = 'https://web.cmp.usercentrics-sandbox.eu/tcf/stub.js';
-            document.head.insertBefore(tcfScript, document.head.firstChild);
-
-            var cmpTag2 = document.createElement('script');
-            cmpTag2.setAttribute('data-settings-id', 'MH_URI7H_6so1B');
-            cmpTag2.setAttribute('data-sandbox', 'true');
-            cmpTag2.setAttribute('id', 'usercentrics-cmp');
-            cmpTag2.src = 'https://web.cmp.usercentrics-sandbox.eu/ui/loader.js';
-            document.head.insertBefore(cmpTag2, document.head.firstChild);
+            // stub.js must finish executing before loader.js runs - appendChild + async=false keeps this order
+            addScript('https://web.cmp.usercentrics-sandbox.eu/tcf/stub.js', {});
+            addScript('https://web.cmp.usercentrics-sandbox.eu/ui/loader.js', {
+                'data-settings-id': 'MH_URI7H_6so1B',
+                'data-sandbox': 'true',
+                'id': 'usercentrics-cmp'
+            });
         }
     })();
     </script>
