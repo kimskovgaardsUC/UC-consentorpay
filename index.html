@@ -58,6 +58,7 @@
     </nav>
 
     <div id="subscriber-status"></div>
+    <div id="consent-status"></div>
 
     <div>
         <button id="subscribe-btn" onclick="ucDemoSubscribe()">Subscribe (demo)</button>
@@ -100,7 +101,34 @@
         localStorage.setItem('uc_demo_subscriber', 'false');
         location.reload();
     }
+
+    function renderConsentStatus() {
+        var el = document.getElementById('consent-status');
+        if (typeof UC_UI === 'undefined') {
+            el.textContent = 'Consent: CMP not loaded (banner suppressed for this subscriber)';
+            return;
+        }
+        var text = 'Consent: ';
+        try {
+            text += UC_UI.areAllConsentsAccepted() ? 'all accepted' : 'not all accepted';
+        } catch (e) {
+            text += 'unavailable';
+        }
+        try {
+            var categories = window.__ucCmp.cmpController.dps.categories;
+            var parts = categories.map(function (c) {
+                return c.label + ': ' + (c.consent && c.consent.status ? 'accepted' : 'declined');
+            });
+            text += ' (' + parts.join(', ') + ')';
+        } catch (e) {
+            // per-category breakdown not available, skip
+        }
+        el.textContent = text;
+    }
+
     renderSubscriberStatus();
+    window.addEventListener('UC_UI_INITIALIZED', renderConsentStatus);
+    if (typeof UC_UI !== 'undefined') { renderConsentStatus(); }
     </script>
 </body>
 </html>
