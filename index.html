@@ -134,7 +134,7 @@
     function renderConsentStatus() {
         var el = document.getElementById('consent-status');
         if (typeof UC_UI === 'undefined') {
-            el.textContent = 'Consent: CMP not loaded (banner suppressed for this subscriber)';
+            el.textContent = 'Consent: CMP not loaded yet';
             return;
         }
         var text = 'Consent: ';
