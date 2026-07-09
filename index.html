@@ -5,39 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UC CMP V3 TCF - Consent or Pay Demo</title>
 
-    <!-- Consent or Pay: subscriber check + conditional CMP loading, per the reference implementation -->
     <script type="application/javascript">
-    (function () {
-        var isSubscriber = localStorage.getItem('uc_demo_subscriber') === 'true';
-
-        function addScript(src, attrs) {
-            var s = document.createElement('script');
-            s.src = src;
-            s.async = false; // preserve document order - dynamically created scripts default to async=true
-            for (var key in attrs) { s.setAttribute(key, attrs[key]); }
-            document.head.appendChild(s);
-            return s;
-        }
-
-        if (isSubscriber) {
-            console.log('User is a subscriber - loading CMP silently');
-            addScript('https://web.cmp.usercentrics-sandbox.eu/ui/loader.js', {
-                'data-settings-id': 'MH_URI7H_6so1B',
-                'data-sandbox': 'true',
-                'id': 'usercentrics-cmp'
-            });
-        } else {
-            console.log('User is not a subscriber - Consent or Pay banner will appear');
-            // stub.js must finish executing before loader.js runs - appendChild + async=false keeps this order
-            addScript('https://web.cmp.usercentrics-sandbox.eu/tcf/stub.js', {});
-            addScript('https://web.cmp.usercentrics-sandbox.eu/ui/loader.js', {
-                'data-settings-id': 'MH_URI7H_6so1B',
-                'data-sandbox': 'true',
-                'id': 'usercentrics-cmp'
-            });
-        }
-    })();
+    if (localStorage.getItem('uc_demo_subscriber') === 'true') {
+        var UC_UI_SUPPRESS_CMP_DISPLAY = true;
+    }
     </script>
+<script src="https://web.cmp.usercentrics-sandbox.eu/tcf/stub.js"></script>
+    <script id="usercentrics-cmp" src="https://web.cmp.usercentrics-sandbox.eu/ui/loader.js" data-settings-id="MH_URI7H_6so1B" data-sandbox="true" async></script>
 
     <!-- Google Analytics -->
     <script type="text/plain" data-usercentrics="Google Analytics">
@@ -113,7 +87,7 @@
     function renderSubscriberStatus() {
         var isSub = localStorage.getItem('uc_demo_subscriber') === 'true';
         var el = document.getElementById('subscriber-status');
-        el.textContent = isSub ? 'Status: Subscriber (TCF stub not loaded, CMP loads silently)' : 'Status: Not a subscriber (Consent or Pay banner will appear)';
+        el.textContent = isSub ? 'Status: Subscriber (banner suppressed via UC_UI_SUPPRESS_CMP_DISPLAY)' : 'Status: Not a subscriber (banner will show)';
         el.className = isSub ? 'status-sub' : 'status-free';
         document.getElementById('subscribe-btn').style.display = isSub ? 'none' : 'inline-block';
         document.getElementById('unsubscribe-btn').style.display = isSub ? 'inline-block' : 'none';
