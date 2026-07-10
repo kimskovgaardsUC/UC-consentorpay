@@ -6,9 +6,13 @@
     <title>UC CMP V3 TCF - Consent or Pay Demo</title>
 
     <script type="application/javascript">
-    if (localStorage.getItem('uc_demo_subscriber') === 'true') {
-        var UC_UI_SUPPRESS_CMP_DISPLAY = true;
-    }
+
+    // Replace this with your payment provider's actual subscriber check
+    var isSubscriber = localStorage.getItem('uc_demo_subscriber') === 'true';
+
+    // Suppress the CMP display for paying subscribers
+    var UC_UI_SUPPRESS_CMP_DISPLAY = isSubscriber;
+
     </script>
 <script src="https://web.cmp.usercentrics-sandbox.eu/tcf/stub.js"></script>
     <script id="usercentrics-cmp" src="https://web.cmp.usercentrics-sandbox.eu/ui/loader.js" data-settings-id="MH_URI7H_6so1B" data-sandbox="true" async></script>
